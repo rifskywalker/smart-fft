@@ -1,0 +1,238 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "id": 2,
+      "name": "Superman",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "id": 3,
+      "name": "Wonder Woman",
+      "alterEgo": "Princess Diana"
+    },
+    {
+      "name": "test1",
+      "alterEgo": "test1",
+      "id": 4
+    },
+    {
+      "name": "test2",
+      "alterEgo": "test2",
+      "id": 5
+    },
+    {
+      "name": "test3",
+      "alterEgo": "test3",
+      "id": 6
+    },
+    {
+      "name": "test4",
+      "alterEgo": "test4",
+      "id": 7
+    },
+    {
+      "name": "test5",
+      "alterEgo": "test5",
+      "id": 8
+    },
+    {
+      "name": "45",
+      "alterEgo": "12",
+      "id": 9
+    },
+    {
+      "name": "78",
+      "alterEgo": "78",
+      "id": 10
+    },
+    {
+      "name": "s",
+      "alterEgo": "d",
+      "id": 11
+    },
+    {
+      "name": "78",
+      "alterEgo": "2",
+      "id": 12
+    },
+    {
+      "name": "78",
+      "alterEgo": "9",
+      "id": 13
+    },
+    {
+      "name": "test",
+      "alterEgo": "test",
+      "id": 14
+    },
+    {
+      "name": "test",
+      "alterEgo": "test",
+      "id": 15
+    },
+    {
+      "name": "s",
+      "alterEgo": "s",
+      "id": 16
+    },
+    {
+      "name": "test",
+      "alterEgo": "test",
+      "id": 17
+    },
+    {
+      "name": "test",
+      "alterEgo": "test",
+      "id": 18
+    },
+    {
+      "name": "s",
+      "alterEgo": "s",
+      "id": 19
+    },
+    {
+      "name": "df",
+      "alterEgo": "df",
+      "id": 20
+    },
+    {
+      "name": "d",
+      "alterEgo": "d",
+      "id": 21
+    },
+    {
+      "name": "e",
+      "alterEgo": "e",
+      "id": 22
+    },
+    {
+      "name": "4",
+      "alterEgo": "4",
+      "id": 23
+    },
+    {
+      "name": "455",
+      "alterEgo": "455",
+      "id": 24
+    },
+    {
+      "name": "f",
+      "alterEgo": "gf",
+      "id": 25
+    },
+    {
+      "name": "f",
+      "alterEgo": "gf",
+      "id": 26
+    },
+    {
+      "name": "d",
+      "alterEgo": "d",
+      "id": 27
+    },
+    {
+      "name": "z",
+      "alterEgo": "a",
+      "id": 28
+    },
+    {
+      "name": "zz",
+      "alterEgo": "a",
+      "id": 29
+    },
+    {
+      "name": "t",
+      "alterEgo": "y",
+      "id": 30
+    },
+    {
+      "name": "r",
+      "alterEgo": "r",
+      "id": 31
+    },
+    {
+      "name": "i",
+      "alterEgo": "i",
+      "id": 32
+    },
+    {
+      "name": "new1",
+      "alterEgo": "new1",
+      "id": 33
+    },
+    {
+      "name": "new2",
+      "alterEgo": "new2",
+      "id": 34
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "name": "Chandler Bing"
+    },
+    {
+      "id": 2,
+      "name": "Joey Tribbiani"
+    },
+    {
+      "id": 3,
+      "name": "Rachel Green"
+    }
+  ],
+  "users": [
+    {
+      "id": "vishwas@example.com",
+      "channelId": "codevolution"
+    }
+  ],
+  "channels": [
+    {
+      "id": "codevolution",
+      "courses": [
+        "react",
+        "vue",
+        "angular"
+      ]
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "label": "red"
+    },
+    {
+      "id": 2,
+      "label": "blue"
+    },
+    {
+      "id": 3,
+      "label": "green"
+    },
+    {
+      "id": 4,
+      "label": "yellow"
+    },
+    {
+      "id": 5,
+      "label": "black"
+    },
+    {
+      "id": 6,
+      "label": "white"
+    },
+    {
+      "id": 7,
+      "label": "orange"
+    },
+    {
+      "id": 8,
+      "label": "purple"
+    }
+  ]
+}
