@@ -32,8 +32,8 @@ const SuperHeroes = () => {
       {/* <Button onClick={refetch}>Fetch heroes</Button>
       <SuperHero refetch={refetch} /> */}
       <SuperHero />
-      {/* <SuperHeroesTable /> */}
-      <SuperHeroMaterialTable />
+      <SuperHeroesTable />
+      {/* <SuperHeroMaterialTable /> */}
       {/* {superHeroesData.data.map((hero) => {
         return (
           <div key={hero.id}>
