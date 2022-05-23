@@ -6,6 +6,11 @@ export const navigationItems = {
       text: "dashboard",
     },
     {
+      name: "Product Main ",
+      to: "/productmain",
+      text: "Product Main",
+    },
+    {
       name: "Processes ",
       to: "/Process",
       text: "Processes",

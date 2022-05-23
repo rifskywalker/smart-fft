@@ -169,6 +169,31 @@
       "name": "new2",
       "alterEgo": "new2",
       "id": 34
+    },
+    {
+      "name": "er",
+      "alterEgo": "r",
+      "id": 35
+    },
+    {
+      "name": "e",
+      "alterEgo": "fff",
+      "id": 36
+    },
+    {
+      "name": "s",
+      "alterEgo": "sss",
+      "id": 37
+    },
+    {
+      "name": "ww",
+      "alterEgo": "eee",
+      "id": 38
+    },
+    {
+      "name": "ww",
+      "alterEgo": "ww",
+      "id": 39
     }
   ],
   "friends": [
@@ -194,11 +219,13 @@
   "channels": [
     {
       "id": "codevolution",
-      "courses": [
-        "react",
-        "vue",
-        "angular"
-      ]
+      "courses": ["react", "vue", "angular"]
+    }
+  ],
+  "productmain": [
+    {
+      "id": "codevolution",
+      "courses": ["react", "vue", "angular"]
     }
   ],
   "colors": [
