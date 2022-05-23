@@ -9,11 +9,11 @@ import Header from "./layout/Header";
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Container>
-        <Header />
-        <Sidebar />
-        <MainRoutes />
-      </Container>
+      {/* <Container> */}
+      <Header />
+      <Sidebar />
+      <MainRoutes />
+      {/* </Container> */}
     </ChakraProvider>
   );
 }
