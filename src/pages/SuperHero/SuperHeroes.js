@@ -4,6 +4,9 @@ import { Button } from "@chakra-ui/react";
 import SuperHero from "../SuperHero/SuperHero";
 import SuperHeroesTable from "../SuperHero/SuperHeroesTable";
 import SuperHeroMaterialTable from "../SuperHero/SuperHeroMaterialTable";
+import SuperHeroSearch from "../SuperHero/SuperHeroSearch";
+
+import { createRef, useState } from "react";
 const SuperHeroes = () => {
   // const {
   //   isLoading: isLoadingSuperHeroes,
@@ -27,18 +30,41 @@ const SuperHeroes = () => {
   //   );
   // }
   // console.log("main render");
+
+  const tableRef = createRef();
+  const [nameForSearch, setNameForSearch] = useState("");
+
+  const [muiTableKey, setMuiTableKey] = useState(0);
   return (
     <>
       {/* <Button onClick={refetch}>Fetch heroes</Button>
       <SuperHero refetch={refetch} /> */}
-      <SuperHero />
+      <SuperHero
+        tableRef={tableRef}
+        muiTableKey={muiTableKey}
+        setMuiTableKey={setMuiTableKey}
+        setNameForSearch={setNameForSearch}
+      />
+      <br /> <br />
+      <SuperHeroSearch
+        tableRef={tableRef}
+        nameForSearch={nameForSearch}
+        setNameForSearch={setNameForSearch}
+      />
       {/* <SuperHeroesTable /> */}
-      <SuperHeroMaterialTable />
+      <br /> <br />
+      <SuperHeroMaterialTable
+        tableRef={tableRef}
+        nameForSearch={nameForSearch}
+        muiTableKey={muiTableKey}
+        setMuiTableKey={setMuiTableKey}
+        setNameForSearch={setNameForSearch}
+      />
       {/* {superHeroesData.data.map((hero) => {
         return (
           <div key={hero.id}>
             <Link to={`/rq-super-heroes/${hero.id}`}>
-              {hero.id} {hero.name}
+              {hero.id} {hero.nameForSearch}
             </Link>
           </div>
         );

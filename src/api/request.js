@@ -2,7 +2,7 @@ import axios from "axios";
 
 const client = (() => {
   return axios.create({
-    baseURL: "http://localhost:4000",
+    baseURL: `${process.env.REACT_APP_API_END_POINT}`,
   });
 })();
 

@@ -28,7 +28,12 @@ import { useRef, useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { useAddSuperHeroData } from "../../hooks/SuperHero/useSuperHeroData";
 
-const SuperHero = () => {
+const SuperHero = ({
+  tableRef,
+  muiTableKey,
+  setMuiTableKey,
+  setNameForSearch,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef();
   const finalRef = useRef();
@@ -38,6 +43,7 @@ const SuperHero = () => {
     onOpen: onOpenAlert,
     onClose: onCloseAlert,
   } = useDisclosure();
+
   const cancelRef = useRef();
 
   const toast = useToast();
@@ -60,10 +66,14 @@ const SuperHero = () => {
 
       setName("");
       setAlterEgo("");
-      queryClient.invalidateQueries("super-heroes"); //refresh data table
+      // queryClient.invalidateQueries("super-heroes"); //refresh data table
       onCloseAlert();
       onClose();
-      // refetch();
+
+      //refetch data
+      //tableRef.current && tableRef.current.onQueryChange();
+      setNameForSearch("");
+      setMuiTableKey(muiTableKey + 1);
     } else {
       initialRef.current.focus();
       toast({
