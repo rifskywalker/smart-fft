@@ -4,6 +4,7 @@ import theme from "./theme/theme";
 
 import MainRoutes from "./routes/Routes";
 import Sidebar from "./layout/Sidebar";
+import Sidebar2 from "./layout/Sidebar2";
 import Header from "./layout/Header";
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Container maxW="container.xl">
         <Header />
-        <Sidebar />
+        <Sidebar2 />
         <MainRoutes />
       </Container>
     </ChakraProvider>
