@@ -34,6 +34,35 @@ export const useSearch = (
   );
 };
 
+const searchById = (id) => {
+  return SuperHeroServices.searchById(id);
+};
+
+export const useSearchById = (onSuccess, onError, id) => {
+  return useQuery(["super-hero", id], () => searchById(id), {
+    onSuccess,
+    onError,
+    // refetchOnMount: true,
+    // keepPreviousData: false,
+    // cacheTime: 0,
+    // staleTime: 0,
+
+    enabled: id ? true : false,
+  });
+};
+
+const editById = (id, dataEdit) => {
+  const data = SuperHeroServices.updateById(id, dataEdit);
+  return data;
+};
+
+export const useEditById = (onSuccess, onError, id) => {
+  return useMutation((dataEdit) => editById(id, dataEdit), {
+    onSuccess,
+    onError,
+  });
+};
+
 // export const Search = async (pageIndex, pageSize) => {
 //   // try {
 //   // const response = await fetch(
@@ -57,6 +86,19 @@ const addSuperHero = (hero) => {
 
 export const useAddSuperHeroData = (onSuccess, onError) => {
   return useMutation(addSuperHero, {
+    onSuccess,
+    onError,
+  });
+};
+
+const deleteSuperHero = (id) => {
+  console.log(id);
+  const data = SuperHeroServices.delete(id);
+  return data;
+};
+
+export const useDeleteSuperHeroData = (onSuccess, onError) => {
+  return useMutation(deleteSuperHero, {
     onSuccess,
     onError,
   });

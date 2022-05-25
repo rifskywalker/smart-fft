@@ -30,11 +30,33 @@ export default class SuperHeroServices {
     }
   }
 
+  static searchById(id) {
+    return request({
+      url: `/superheroes/${id}`,
+      method: "GET",
+    });
+  }
+
   static create(data) {
     return request({
       url: "/superheroes",
       method: "POST",
       data,
+    });
+  }
+
+  static updateById(id, data) {
+    return request({
+      url: `/superheroes/${id}`,
+      method: "PUT",
+      data,
+    });
+  }
+
+  static delete(id) {
+    return request({
+      url: `/superheroes/${id}`,
+      method: "DELETE",
     });
   }
 }

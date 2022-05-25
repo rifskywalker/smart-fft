@@ -1,6 +1,6 @@
 import { useSuperHeroesData } from "../../hooks/SuperHero/useSuperHeroData";
 import { Link } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import SuperHero from "../SuperHero/SuperHero";
 import SuperHeroesTable from "../SuperHero/SuperHeroesTable";
 import SuperHeroMaterialTable from "../SuperHero/SuperHeroMaterialTable";
@@ -33,17 +33,40 @@ const SuperHeroes = () => {
 
   const tableRef = createRef();
   const [nameForSearch, setNameForSearch] = useState("");
+  const [actionMenu, setActionMenu] = useState(""); //Add , Edit
+
+  const [rowSelectedForActions, setRowSelectedForActions] = useState(null);
 
   const [muiTableKey, setMuiTableKey] = useState(0);
+
+  const {
+    isOpen: isOpenManagePage,
+    onOpen: onOpenManagePage,
+    onClose: onCloseManagePage,
+  } = useDisclosure();
+
   return (
     <>
       {/* <Button onClick={refetch}>Fetch heroes</Button>
       <SuperHero refetch={refetch} /> */}
+      <Button
+        onClick={() => {
+          onOpenManagePage();
+          setActionMenu("Add");
+        }}
+      >
+        Add
+      </Button>
       <SuperHero
         tableRef={tableRef}
         muiTableKey={muiTableKey}
         setMuiTableKey={setMuiTableKey}
         setNameForSearch={setNameForSearch}
+        actionMenu={actionMenu}
+        isOpenManagePage={isOpenManagePage}
+        onOpenManagePage={onOpenManagePage}
+        onCloseManagePage={onCloseManagePage}
+        rowSelectedForActions={rowSelectedForActions}
       />
       <br /> <br />
       <SuperHeroSearch
@@ -59,6 +82,13 @@ const SuperHeroes = () => {
         muiTableKey={muiTableKey}
         setMuiTableKey={setMuiTableKey}
         setNameForSearch={setNameForSearch}
+        actionMenu={actionMenu}
+        setActionMenu={setActionMenu}
+        isOpenManagePage={isOpenManagePage}
+        onOpenManagePage={onOpenManagePage}
+        onCloseManagePage={onCloseManagePage}
+        rowSelectedForActions={rowSelectedForActions}
+        setRowSelectedForActions={setRowSelectedForActions}
       />
       {/* {superHeroesData.data.map((hero) => {
         return (

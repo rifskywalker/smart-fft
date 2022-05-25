@@ -4,7 +4,15 @@ const SuperHeroSearch = ({ tableRef, nameForSearch, setNameForSearch }) => {
   const handleChange = (event) => setNameForSearch(event.target.value);
 
   const handleClickSearch = () => {
-    return tableRef.current && tableRef.current.onQueryChange();
+    // tableRef.current.pageIndex = 1;
+    tableRef.current &&
+      tableRef.current.onQueryChange({
+        page: 0,
+        //search: "",
+        // sortBy: [],
+        // sortOptions: [],
+      });
+    // tableRef.current.sortBy([]);
   };
 
   return (

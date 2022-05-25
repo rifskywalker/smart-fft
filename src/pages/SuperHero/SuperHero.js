@@ -12,7 +12,6 @@ import {
   FormLabel,
   Input,
   useToast,
-  Spinner,
 } from "@chakra-ui/react";
 
 import {
@@ -26,31 +25,37 @@ import {
 
 import { useRef, useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
-import { useAddSuperHeroData } from "../../hooks/SuperHero/useSuperHeroData";
+import {
+  useAddSuperHeroData,
+  useSearchById,
+  useEditById,
+} from "../../hooks/SuperHero/useSuperHeroData";
 
 const SuperHero = ({
   tableRef,
   muiTableKey,
   setMuiTableKey,
   setNameForSearch,
+  actionMenu,
+  isOpenManagePage,
+  onOpenManagePage,
+  onCloseManagePage,
+  rowSelectedForActions,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = useRef();
-  const finalRef = useRef();
-
   const {
     isOpen: isOpenAlert,
     onOpen: onOpenAlert,
     onClose: onCloseAlert,
   } = useDisclosure();
 
+  const initialRef = useRef();
   const cancelRef = useRef();
 
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
   const [alterEgo, setAlterEgo] = useState("");
-  const queryClient = useQueryClient();
 
   const onSuccess = (data) => {
     //if cannot insert in server
@@ -68,7 +73,7 @@ const SuperHero = ({
       setAlterEgo("");
       // queryClient.invalidateQueries("super-heroes"); //refresh data table
       onCloseAlert();
-      onClose();
+      onCloseManagePage();
 
       //refetch data
       //tableRef.current && tableRef.current.onQueryChange();
@@ -106,71 +111,165 @@ const SuperHero = ({
     onError
   );
 
+  const onSuccessEditProcess = (data) => {
+    if (data) {
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      tableRef.current && tableRef.current.onQueryChange();
+      setName("");
+      setAlterEgo("");
+      onCloseAlert();
+      onCloseManagePage();
+    } else {
+      initialRef.current.focus();
+      toast({
+        title: "Account created.",
+        description: "Mistake",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setName("");
+      setAlterEgo("");
+    }
+  };
+
+  const onErrorEditProcess = (error) => {
+    initialRef.current.focus();
+    toast({
+      title: "Account created.",
+      description: error.message,
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+      position: "top-right",
+    });
+  };
+
+  const { mutateAsync: EditProcess, isLoading: isLoadingEditProcess } =
+    useEditById(
+      onSuccessEditProcess,
+      onErrorEditProcess,
+      rowSelectedForActions?.id
+    );
+
   const handleClickSave = async () => {
     onCloseAlert();
-    const hero = { name, alterEgo };
 
-    // const result = await addHero(hero);
+    if (actionMenu == "Edit") {
+    }
 
-    // try {
-    await addHero(hero);
-    // } catch (error) {
-    //   toast({
-    //     title: "Account created.",
-    //     description: error.message,
-    //     status: "error",
-    //     duration: 2000,
-    //     isClosable: true,
-    //     position: "top-right",
-    //   });
-    // } finally {
-    //   // console.log("done");
-    // }
-
-    // if (isError) {
-    //   toast({
-    //     title: "Account created.",
-    //     description: "We've created your account for you.",
-    //     status: "error",
-    //     duration: 2000,
-    //     isClosable: true,
-    //     position: "top-right",
-    //   });
-    //   return;
-    // }
-
-    // toast({
-    //   title: "Account created.",
-    //   description: "We've created your account for you.",
-    //   status: "success",
-    //   duration: 2000,
-    //   isClosable: true,
-    //   position: "top-right",
-    // });
-    // onClose();
+    switch (actionMenu) {
+      case "Add":
+        const dataAdd = { name, alterEgo };
+        await addHero(dataAdd);
+        break;
+      case "Edit":
+        const dataEdit = { name, alterEgo };
+        await EditProcess(dataEdit);
+        break;
+      default:
+        alert("Error Action : " + actionMenu);
+    }
   };
+
+  const onSuccessSearchForEdit = (data) => {
+    if (data) {
+      setName(data.data.name);
+    } else {
+      toast({
+        title: "Account created.",
+        description: "Mistake",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      onCloseManagePage();
+    }
+  };
+
+  const onErrorSearchForEdit = (error) => {
+    toast({
+      title: "Error",
+      description: error.message,
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+      position: "top-right",
+    });
+    onCloseManagePage();
+  };
+
+  // useEffect(() => {
+  //   console.log("refresh");
+  //   refetch();
+  // }, [rowSelectedForActions]);
+
+  const {
+    isLoading: isLoadingSearchForEdit,
+    data,
+    isError,
+    error,
+    refetch,
+    isFetching,
+    isPreviousData,
+    is,
+  } = useSearchById(
+    onSuccessSearchForEdit,
+    onErrorSearchForEdit,
+    rowSelectedForActions?.id
+  );
+
+  if (actionMenu == "Edit") {
+    if (isLoadingSearchForEdit) {
+      return <h2>Loading...</h2>;
+    }
+    if (isError) {
+      return (
+        <>
+          <Button onClick={refetch}>Try connection</Button>
+          <h2>{error.message}</h2>
+        </>
+      );
+    }
+
+    console.log("render");
+    queryClient.invalidateQueries(["super-hero", { type: "done" }]);
+  }
+
+  // if (isPreviousData |) {
+  //   refetch();
+  // }
 
   return (
     <>
-      <Button onClick={onOpen}>Add</Button>
-
       <Modal
         initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenManagePage}
+        onClose={onCloseManagePage}
         closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>
+            {actionMenu == "Add" ? "Create " : "Edit "}Process
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>First name</FormLabel>
+              <FormLabel>Process name</FormLabel>
               <Input
                 ref={initialRef}
-                placeholder="First name"
+                placeholder="Process name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -178,7 +277,7 @@ const SuperHero = ({
               />
             </FormControl>
 
-            <FormControl mt={4}>
+            {/* <FormControl mt={4}>
               <FormLabel>Last name</FormLabel>
               <Input
                 placeholder="Last name"
@@ -187,7 +286,7 @@ const SuperHero = ({
                 onChange={(e) => setAlterEgo(e.target.value)}
                 disabled={isLoading}
               />
-            </FormControl>
+            </FormControl> */}
           </ModalBody>
 
           <ModalFooter>
@@ -199,7 +298,15 @@ const SuperHero = ({
             >
               {isLoading ? "Saving..." : "Save"}
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                setName("");
+                setAlterEgo("");
+                onCloseManagePage();
+              }}
+            >
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -212,7 +319,7 @@ const SuperHero = ({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              Save Data
             </AlertDialogHeader>
 
             <AlertDialogBody>
